@@ -2,123 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HIM is Watching</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HIM Terminal</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
     body {
       margin: 0;
-      background-color: black;
-      color: #ff3c3c;
+      background-color: #000;
+      color: #33ff33;
       font-family: 'Share Tech Mono', monospace;
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      text-align: center;
-      position: relative;
     }
 
-    .glitch {
-      font-size: 2.5em;
-      position: relative;
-      color: white;
-      animation: flicker 1.5s infinite;
+    .terminal {
+      width: 90%;
+      max-width: 800px;
+      background: #000;
+      padding: 30px;
+      box-shadow: 0 0 20px #0f0;
+      text-shadow: 0 0 5px #33ff33;
+      animation: flicker 3s infinite;
     }
 
-    .glitch::before,
-    .glitch::after {
+    .glitch-text {
+      font-size: 1.8em;
+      position: relative;
+      color: #33ff33;
+    }
+
+    .glitch-text::before,
+    .glitch-text::after {
       content: attr(data-text);
       position: absolute;
       left: 0;
       width: 100%;
       overflow: hidden;
+    }
+
+    .glitch-text::before {
+      color: #00ffcc;
+      z-index: -1;
+      animation: glitchTop 1.2s infinite linear;
+    }
+
+    .glitch-text::after {
       color: #ff3c3c;
-      clip: rect(0, 0, 0, 0);
+      z-index: -2;
+      animation: glitchBottom 1.2s infinite linear;
     }
 
-    .glitch::before {
-      animation: glitchTop 2s infinite linear;
+    .line {
+      margin: 20px 0;
+      font-size: 1.1em;
+      animation: typewriter 3s steps(40, end) 1;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #33ff33;
     }
 
-    .glitch::after {
-      animation: glitchBottom 1.5s infinite linear;
+    @keyframes typewriter {
+      from { width: 0; }
+      to { width: 100%; }
     }
 
     @keyframes glitchTop {
-      0% {
-        clip: rect(0, 9999px, 0, 0);
-      }
-      10% {
-        clip: rect(10px, 9999px, 60px, 0);
-        transform: translate(-3px, -3px);
-      }
-      20% {
-        clip: rect(5px, 9999px, 50px, 0);
-        transform: translate(3px, -2px);
-      }
-      30%,
-      100% {
-        clip: rect(0, 9999px, 0, 0);
-        transform: none;
-      }
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(5px, 9999px, 20px, 0); transform: translate(-3px, -2px); }
+      20% { clip: rect(10px, 9999px, 30px, 0); transform: translate(3px, 2px); }
+      30%, 100% { clip: rect(0, 9999px, 0, 0); transform: none; }
     }
 
     @keyframes glitchBottom {
-      0% {
-        clip: rect(0, 9999px, 0, 0);
-      }
-      10% {
-        clip: rect(70px, 9999px, 100px, 0);
-        transform: translate(3px, 2px);
-      }
-      20% {
-        clip: rect(60px, 9999px, 90px, 0);
-        transform: translate(-2px, 1px);
-      }
-      30%,
-      100% {
-        clip: rect(0, 9999px, 0, 0);
-        transform: none;
-      }
+      0% { clip: rect(0, 9999px, 0, 0); }
+      10% { clip: rect(35px, 9999px, 55px, 0); transform: translate(2px, 2px); }
+      20% { clip: rect(50px, 9999px, 70px, 0); transform: translate(-2px, -1px); }
+      30%, 100% { clip: rect(0, 9999px, 0, 0); transform: none; }
     }
 
     @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 22%, 24%, 55% {
-        opacity: 0.3;
-      }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+      60% { opacity: 1; }
+      65% { opacity: 0.7; }
     }
 
-    .subtext {
-      margin-top: 20px;
-      font-size: 1.1em;
-      color: #ff3c3c;
-      animation: flicker 3s infinite;
+    .cursor {
+      animation: blink 1s step-start infinite;
     }
 
-    .static {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif') repeat;
-      mix-blend-mode: screen;
-      opacity: 0.07;
-      pointer-events: none;
+    @keyframes blink {
+      50% { opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div class="static"></div>
-  <div>
-    <div class="glitch" data-text=" UNDER CONSTRUCTION , COMING SOON ">UNDER CONSTRUCTION</div>
-    <div class="subtext">HIM is watching you...<br>when the time comes, HIM will guide you</div>
+  <div class="terminal">
+    <div class="glitch-text" data-text=">> UNDER CONSTRUCTION ... COMING SOON">
+      >> UNDER CONSTRUCTION ... COMING SOON
+    </div>
+    <div class="line">HIM is watching you<span class="cursor">_</span></div>
+    <div class="line" style="animation-delay: 3s;">When the time comes, HIM will guide you<span class="cursor">_</span></div>
   </div>
 </body>
 </html>
